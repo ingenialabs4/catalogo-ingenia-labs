@@ -23,7 +23,7 @@ const PROJECTS = [
       "Seguridad y aislamiento de datos por médico"
     ],
     tech: ["PHP 8.2", "Laravel", "HTML5", "CSS3", "Tailwind", "Vite"],
-    images: [],
+    images: ["assets/img/proyectos/medirella-1.png"],
     links: { demo: "https://medirella.es/tienda", repo: "" }
   },
   {

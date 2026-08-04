@@ -1,2 +1,5 @@
 .DS_Store
 Thumbs.db
+
+# Carpeta de trabajo para imágenes originales antes de optimizarlas/copiarlas a assets/img
+recursos/
