@@ -78,19 +78,35 @@ function renderFilters() {
 function projectCardHTML(project) {
   const color = COLOR_MAP[project.color] || COLOR_MAP.blue;
   const hasImage = project.images && project.images.length > 0;
-  const thumbnailWrap = hasImage
-    ? `<div class="relative bg-slate-100 dark:bg-slate-800">
+  const isMobileApp = project.category === "movil";
+
+  let thumbnailWrap;
+  if (hasImage && isMobileApp) {
+    const preview = project.images.slice(0, 3);
+    thumbnailWrap = `<div class="relative h-40 bg-slate-100 dark:bg-slate-800 flex items-center justify-center gap-2 p-3">
+         ${preview.map((src) => `
+           <div class="h-full flex-1 max-w-[33%] bg-white dark:bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center">
+             <img src="${src}" alt="${project.title}" class="h-full w-auto object-contain">
+           </div>`).join("")}
+         <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
+           <i data-lucide="${project.icon}" class="w-4 h-4"></i>
+         </span>
+       </div>`;
+  } else if (hasImage) {
+    thumbnailWrap = `<div class="relative bg-slate-100 dark:bg-slate-800">
          <img src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
          <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
            <i data-lucide="${project.icon}" class="w-4 h-4"></i>
          </span>
-       </div>`
-    : `<div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center">
+       </div>`;
+  } else {
+    thumbnailWrap = `<div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center">
          <i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>
          <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
            <i data-lucide="${project.icon}" class="w-4 h-4"></i>
          </span>
        </div>`;
+  }
   return `
     <article data-id="${project.id}"
       class="project-card group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
