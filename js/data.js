@@ -23,12 +23,12 @@ const PROJECTS = [
       "Seguridad y aislamiento de datos por médico"
     ],
     tech: ["PHP 8.2", "Laravel", "HTML5", "CSS3", "Tailwind", "Vite"],
-    images: ["assets/img/proyectos/medirella-1.png"],
+    images: ["assets/img/proyectos/medirella-1.png", "assets/img/proyectos/medirella-2.png"],
     links: { demo: "https://medirella.es/tienda", repo: "" }
   },
   {
-    id: "ferreteria-el-ingenierito",
-    title: "Sistema de Facturación — Ferretería \"El Ingenierito\"",
+    id: "sistema-facturacion",
+    title: "Sistema de Facturación",
     category: "administrativo",
     categoryLabel: "Administrativo",
     icon: "package",
@@ -43,7 +43,15 @@ const PROJECTS = [
       "Facturación electrónica integrada con SUNAT (Perú)"
     ],
     tech: ["PHP", "Laravel 12"],
-    images: [],
+    images: [
+      "assets/img/proyectos/ferreteria-1.png",
+      "assets/img/proyectos/ferreteria-2.png",
+      "assets/img/proyectos/ferreteria-3.png",
+      "assets/img/proyectos/ferreteria-4.png",
+      "assets/img/proyectos/ferreteria-5.png",
+      "assets/img/proyectos/ferreteria-6.png",
+      "assets/img/proyectos/ferreteria-7.png"
+    ],
     links: { demo: "", repo: "" }
   },
   {
@@ -63,7 +71,15 @@ const PROJECTS = [
       "Recordatorios mensuales: actualización automática de estado 'Pagado/Cobrado' a 'Pendiente'"
     ],
     tech: ["Flutter", "Dart", "Provider", "Firebase", "Cloud Firestore", "Cloud Functions (Node.js)", "AdMob"],
-    images: [],
+    images: [
+      "assets/img/proyectos/altoque-1.jpg",
+      "assets/img/proyectos/altoque-2.jpg",
+      "assets/img/proyectos/altoque-3.jpg",
+      "assets/img/proyectos/altoque-4.jpg",
+      "assets/img/proyectos/altoque-5.jpg",
+      "assets/img/proyectos/altoque-6.jpg",
+      "assets/img/proyectos/altoque-7.jpg"
+    ],
     links: { demo: "", repo: "" }
   },
   {
@@ -84,7 +100,14 @@ const PROJECTS = [
       "Alertas automáticas por correo de productos próximos a vencer"
     ],
     tech: ["PHP 8.2+", "Laravel 12", "Tailwind CSS 4", "Vite", "Alpine.js", "SQLite", "Google Maps API"],
-    images: [],
+    images: [
+      "assets/img/proyectos/ventas-inventario-1.png",
+      "assets/img/proyectos/ventas-inventario-2.png",
+      "assets/img/proyectos/ventas-inventario-3.png",
+      "assets/img/proyectos/ventas-inventario-4.png",
+      "assets/img/proyectos/ventas-inventario-5.png",
+      "assets/img/proyectos/ventas-inventario-6.png"
+    ],
     links: { demo: "", repo: "" }
   }
 ];
