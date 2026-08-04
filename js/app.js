@@ -78,18 +78,23 @@ function renderFilters() {
 function projectCardHTML(project) {
   const color = COLOR_MAP[project.color] || COLOR_MAP.blue;
   const hasImage = project.images && project.images.length > 0;
-  const thumbnail = hasImage
-    ? `<img src="${project.images[0]}" alt="${project.title}" class="max-w-full max-h-full object-contain p-2">`
-    : `<i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>`;
+  const thumbnailWrap = hasImage
+    ? `<div class="relative bg-slate-100 dark:bg-slate-800">
+         <img src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
+         <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
+           <i data-lucide="${project.icon}" class="w-4 h-4"></i>
+         </span>
+       </div>`
+    : `<div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center">
+         <i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>
+         <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
+           <i data-lucide="${project.icon}" class="w-4 h-4"></i>
+         </span>
+       </div>`;
   return `
     <article data-id="${project.id}"
       class="project-card group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
-      <div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center overflow-hidden">
-        ${thumbnail}
-        <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
-          <i data-lucide="${project.icon}" class="w-4 h-4"></i>
-        </span>
-      </div>
+      ${thumbnailWrap}
       <div class="p-5">
         <div class="flex items-center justify-between gap-2 mb-2">
           <h3 class="font-bold">${project.title}</h3>
@@ -136,9 +141,7 @@ function openModal(id) {
 
   const header = hasImages
     ? `<div class="bg-slate-100 dark:bg-slate-800 rounded-t-2xl overflow-hidden">
-         <div class="h-56 flex items-center justify-center">
-           <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="max-w-full max-h-full object-contain p-2">
-         </div>
+         <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
          ${project.images.length > 1 ? `
          <div class="flex gap-2 px-4 pb-4 overflow-x-auto">
            ${project.images.map((src, i) => `
