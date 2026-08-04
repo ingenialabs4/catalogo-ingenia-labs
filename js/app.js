@@ -5,11 +5,10 @@
 
 const CATEGORIES = [
   { key: "todos", label: "Todos", icon: "layout-grid" },
-  { key: "administrativo", label: "Administrativos", icon: "briefcase" },
-  { key: "ecommerce", label: "E-commerce", icon: "shopping-cart" },
-  { key: "educativo", label: "Educativos", icon: "graduation-cap" },
   { key: "salud", label: "Salud", icon: "heart-pulse" },
-  { key: "otros", label: "Otros", icon: "more-horizontal" }
+  { key: "administrativo", label: "Administrativos", icon: "briefcase" },
+  { key: "movil", label: "Móvil", icon: "smartphone" },
+  { key: "ecommerce", label: "E-commerce", icon: "shopping-cart" }
 ];
 
 const COLOR_MAP = {
@@ -78,11 +77,15 @@ function renderFilters() {
 
 function projectCardHTML(project) {
   const color = COLOR_MAP[project.color] || COLOR_MAP.blue;
+  const hasImage = project.images && project.images.length > 0;
+  const thumbnail = hasImage
+    ? `<img src="${project.images[0]}" alt="${project.title}" class="w-full h-full object-cover">`
+    : `<i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>`;
   return `
     <article data-id="${project.id}"
       class="project-card group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
-      <div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center">
-        <i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>
+      <div class="h-40 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center overflow-hidden">
+        ${thumbnail}
         <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
           <i data-lucide="${project.icon}" class="w-4 h-4"></i>
         </span>
@@ -129,10 +132,35 @@ function openModal(id) {
   const project = PROJECTS.find((p) => p.id === id);
   if (!project) return;
   const color = COLOR_MAP[project.color] || COLOR_MAP.blue;
+  const hasImages = project.images && project.images.length > 0;
+
+  const header = hasImages
+    ? `<img src="${project.images[0]}" alt="${project.title}" class="w-full h-44 object-cover rounded-t-2xl">`
+    : `<div class="h-44 bg-slate-100 dark:bg-slate-800 flex items-center justify-center rounded-t-2xl">
+         <i data-lucide="${project.icon}" class="w-14 h-14 text-slate-300 dark:text-slate-600"></i>
+       </div>`;
+
+  const gallery = hasImages && project.images.length > 1
+    ? `<div class="grid grid-cols-3 gap-2 mb-6">
+         ${project.images.slice(1).map((src) => `<img src="${src}" alt="${project.title}" class="w-full h-20 object-cover rounded-lg">`).join("")}
+       </div>`
+    : "";
+
+  const links = [];
+  if (project.links.demo) {
+    links.push(`<a href="${project.links.demo}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-purple-600 text-white font-semibold text-sm hover:opacity-90 transition-opacity">
+      <i data-lucide="external-link" class="w-4 h-4"></i> Ver demo
+    </a>`);
+  }
+  if (project.links.repo) {
+    links.push(`<a href="${project.links.repo}" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+      <i data-lucide="github" class="w-4 h-4"></i> Repositorio
+    </a>`);
+  }
 
   modalContent.innerHTML = `
-    <div class="h-44 bg-slate-100 dark:bg-slate-800 relative flex items-center justify-center rounded-t-2xl">
-      <i data-lucide="${project.icon}" class="w-14 h-14 text-slate-300 dark:text-slate-600"></i>
+    <div class="relative">
+      ${header}
       <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
@@ -144,6 +172,8 @@ function openModal(id) {
       <h2 class="text-2xl font-bold mb-3">${project.title}</h2>
       <p class="text-slate-600 dark:text-slate-400 mb-6">${project.description}</p>
 
+      ${gallery}
+
       <h3 class="font-semibold mb-2 text-sm uppercase tracking-wide text-slate-400">Características</h3>
       <ul class="mb-6 space-y-2">
         ${project.features.map((f) => `
@@ -153,18 +183,11 @@ function openModal(id) {
       </ul>
 
       <h3 class="font-semibold mb-2 text-sm uppercase tracking-wide text-slate-400">Tecnologías</h3>
-      <div class="flex flex-wrap gap-2 mb-8">
+      <div class="flex flex-wrap gap-2 ${links.length ? "mb-8" : ""}">
         ${project.tech.map((t) => `<span class="text-xs px-2.5 py-1.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">${t}</span>`).join("")}
       </div>
 
-      <div class="flex flex-wrap gap-3">
-        <a href="${project.links.demo}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-purple-600 text-white font-semibold text-sm hover:opacity-90 transition-opacity">
-          <i data-lucide="external-link" class="w-4 h-4"></i> Ver demo
-        </a>
-        <a href="${project.links.repo}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-          <i data-lucide="github" class="w-4 h-4"></i> Repositorio
-        </a>
-      </div>
+      ${links.length ? `<div class="flex flex-wrap gap-3">${links.join("")}</div>` : ""}
     </div>`;
 
   modalBackdrop.classList.remove("hidden");

@@ -1,166 +1,90 @@
 // Catálogo de proyectos de Ingenia Labs.
 // Para agregar un proyecto nuevo, añade un objeto más a este array.
+// El campo "images" es opcional: si está vacío se muestra un ícono
+// como marcador de posición. Para agregar imágenes, coloca los archivos
+// en assets/img/proyectos/ y referencia la ruta aquí, ej:
+// images: ["assets/img/proyectos/medirella-1.jpg"]
 const PROJECTS = [
   {
-    id: "gestion-escolar",
-    title: "Sistema de Gestión Escolar",
-    category: "educativo",
-    categoryLabel: "Educativo",
-    icon: "graduation-cap",
-    color: "blue",
-    summary: "Plataforma web para la gestión académica de estudiantes, cursos, notas y usuarios.",
-    description: "Plataforma integral pensada para instituciones educativas que necesitan centralizar la administración académica. Permite registrar estudiantes, asignar cursos, capturar calificaciones y generar reportes de rendimiento en tiempo real.",
-    features: [
-      "Gestión de estudiantes, docentes y cursos",
-      "Registro y cálculo automático de calificaciones",
-      "Reportes de rendimiento académico con gráficos",
-      "Roles y permisos por tipo de usuario"
-    ],
-    tech: ["Laravel", "MySQL", "Bootstrap", "Chart.js"],
-    links: { demo: "#", repo: "#" }
-  },
-  {
-    id: "tienda-online",
-    title: "Tienda Online",
-    category: "ecommerce",
-    categoryLabel: "E-commerce",
-    icon: "shopping-cart",
-    color: "emerald",
-    summary: "Sistema de comercio electrónico con carrito de compras, pagos y gestión de pedidos.",
-    description: "Tienda en línea completa con catálogo de productos, carrito de compras, pasarela de pagos integrada y panel para gestionar pedidos e inventario desde un solo lugar.",
-    features: [
-      "Catálogo de productos con filtros y búsqueda",
-      "Carrito de compras y checkout con Stripe",
-      "Gestión de pedidos y estados de envío",
-      "Panel de administración de productos"
-    ],
-    tech: ["Laravel", "MySQL", "Tailwind CSS", "Stripe"],
-    links: { demo: "#", repo: "#" }
-  },
-  {
-    id: "panel-administrativo",
-    title: "Panel Administrativo",
-    category: "administrativo",
-    categoryLabel: "Administrativo",
-    icon: "layout-dashboard",
-    color: "purple",
-    summary: "Dashboard administrativo con reportes en tiempo real y gestión de usuarios y permisos.",
-    description: "Panel central para administrar usuarios, roles y permisos de una organización, con visualización de métricas clave en tiempo real mediante gráficos interactivos.",
-    features: [
-      "Dashboard con métricas en tiempo real",
-      "Gestión de usuarios, roles y permisos",
-      "Gráficos interactivos con ApexCharts",
-      "Interfaz reactiva con Alpine.js"
-    ],
-    tech: ["Laravel", "MySQL", "Alpine.js", "ApexCharts"],
-    links: { demo: "#", repo: "#" }
-  },
-  {
-    id: "citas-medicas",
-    title: "Sistema de Citas Médicas",
+    id: "medirella",
+    title: "MEDIRELLA",
     category: "salud",
     categoryLabel: "Salud",
     icon: "heart-pulse",
     color: "pink",
-    summary: "Plataforma para la reserva de citas médicas y gestión de pacientes y especialistas.",
-    description: "Sistema que facilita la reserva de citas médicas en línea, con calendario de disponibilidad por especialista y expediente básico de pacientes.",
+    summary: "Sistema web de gestión de consultorio médico enfocado en atención general, ginecología y obstetricia.",
+    description: "Sistema web de gestión de consultorio médico enfocado en atención general, ginecología y obstetricia. Incluye ficha de atención clínica con autoguardado en tiempo real, seguridad y aislamiento de datos por médico, y control inteligente de stock de medicación, todo con un diseño responsivo premium y soporte de temas.",
     features: [
-      "Calendario de citas con FullCalendar",
-      "Gestión de pacientes y especialistas",
-      "Recordatorios y confirmación de citas",
-      "Panel de administración para clínicas"
+      "Gestión de citas: programación, estados y cancelaciones",
+      "Expediente del paciente: identificación, antecedentes y alergias",
+      "Historia clínica detallada: anamnesis, signos vitales, IMC, anticonceptivos, diagnósticos y recetas",
+      "Inventario y catálogos de servicios y medicamentos con stock",
+      "Ficha de atención clínica con autoguardado en tiempo real",
+      "Seguridad y aislamiento de datos por médico"
     ],
-    tech: ["PHP", "MySQL", "Bootstrap", "FullCalendar"],
-    links: { demo: "#", repo: "#" }
+    tech: ["PHP 8.2", "Laravel", "HTML5", "CSS3", "Tailwind", "Vite"],
+    images: [],
+    links: { demo: "https://medirella.es/tienda", repo: "" }
   },
   {
-    id: "plataforma-cursos",
-    title: "Plataforma de Cursos",
-    category: "educativo",
-    categoryLabel: "Educativo",
-    icon: "book-open",
-    color: "blue",
-    summary: "Sistema de gestión de cursos en línea con lecciones, evaluaciones y seguimiento de progreso.",
-    description: "Plataforma de e-learning donde los usuarios pueden inscribirse a cursos, avanzar por lecciones en video, presentar evaluaciones y hacer seguimiento a su progreso.",
-    features: [
-      "Cursos con lecciones en video y materiales",
-      "Evaluaciones y seguimiento de progreso",
-      "Certificados al completar un curso",
-      "Interfaz dinámica con Vue.js"
-    ],
-    tech: ["Laravel", "MySQL", "Vue.js", "Tailwind CSS"],
-    links: { demo: "#", repo: "#" }
-  },
-  {
-    id: "sistema-inventarios",
-    title: "Sistema de Inventarios",
+    id: "ferreteria-el-ingenierito",
+    title: "Sistema de Facturación — Ferretería \"El Ingenierito\"",
     category: "administrativo",
     categoryLabel: "Administrativo",
     icon: "package",
     color: "orange",
-    summary: "Control de inventarios, productos, proveedores y movimientos en tiempo real.",
-    description: "Herramienta para controlar el inventario de una empresa: entradas y salidas de productos, proveedores asociados y alertas de stock bajo, con tablas dinámicas y exportables.",
+    summary: "Sistema web de gestión de compras, ventas e inventario para el rubro ferretero, con facturación electrónica.",
+    description: "Sistema web de gestión de compras, ventas e inventario para el rubro ferretero, con emisión de comprobantes autorizados y un módulo de facturación electrónica integrado con SUNAT (Perú).",
     features: [
-      "Control de entradas y salidas de stock",
-      "Gestión de proveedores y productos",
-      "Alertas de inventario bajo",
-      "Tablas con DataTables (exportar a Excel/PDF)"
+      "Control de inventario de productos",
+      "Gestión de clientes y proveedores",
+      "Registro de compras y ventas",
+      "Emisión de comprobantes autorizados",
+      "Facturación electrónica integrada con SUNAT (Perú)"
     ],
-    tech: ["PHP", "MySQL", "Bootstrap", "DataTables"],
-    links: { demo: "#", repo: "#" }
+    tech: ["PHP", "Laravel 12"],
+    images: [],
+    links: { demo: "", repo: "" }
   },
   {
-    id: "app-reservas",
-    title: "App de Reservas de Espacios",
-    category: "otros",
-    categoryLabel: "Otros",
-    icon: "calendar-check",
-    color: "amber",
-    summary: "Reserva de salas y espacios compartidos con calendario y confirmación automática.",
-    description: "Aplicación para reservar salas de reuniones o espacios compartidos dentro de una organización, evitando conflictos de horario mediante validación automática de disponibilidad.",
+    id: "altoque",
+    title: "AlToque — Gestión Financiera Inteligente",
+    category: "movil",
+    categoryLabel: "Móvil",
+    icon: "smartphone",
+    color: "purple",
+    summary: "App móvil multiplataforma para registrar, controlar y programar recordatorios de compromisos financieros cotidianos.",
+    description: "Aplicación móvil multiplataforma (Android) diseñada para el registro, control y programación de recordatorios y notificaciones de actividades y compromisos financieros cotidianos: pagos, deudas y cobros, con generación y lectura de códigos QR.",
     features: [
-      "Calendario de disponibilidad de espacios",
-      "Confirmación automática de reservas",
-      "Notificaciones por correo",
-      "Panel de administración de espacios"
+      "Normales: notificaciones simples para eventos, tareas o compromisos del día a día",
+      "Pagos: control manual y registro de vencimiento de facturas y obligaciones recurrentes",
+      "Deudas: registro de dinero adeudado, con escaneo y almacenamiento de códigos QR de pago (Yape/Plin)",
+      "Cobros: registro de dinero por cobrar, con generación de QR propios y envío por WhatsApp",
+      "Recordatorios mensuales: actualización automática de estado 'Pagado/Cobrado' a 'Pendiente'"
     ],
-    tech: ["Laravel", "MySQL", "Alpine.js", "Tailwind CSS"],
-    links: { demo: "#", repo: "#" }
+    tech: ["Flutter", "Dart", "Provider", "Firebase", "Cloud Firestore", "Cloud Functions (Node.js)", "AdMob"],
+    images: [],
+    links: { demo: "", repo: "" }
   },
   {
-    id: "landing-inmobiliaria",
-    title: "Landing Inmobiliaria",
-    category: "otros",
-    categoryLabel: "Otros",
-    icon: "building-2",
-    color: "amber",
-    summary: "Landing page para inmobiliaria con catálogo de propiedades y formulario de contacto.",
-    description: "Sitio de presentación para una inmobiliaria, con catálogo filtrable de propiedades, galería de imágenes y formulario de contacto conectado a WhatsApp.",
+    id: "ventas-inventario",
+    title: "Sistema de Ventas e Inventario",
+    category: "ecommerce",
+    categoryLabel: "E-commerce",
+    icon: "shopping-cart",
+    color: "emerald",
+    summary: "Gestión integral de tienda: inventario, punto de venta (POS), catálogo público y delivery georreferenciado.",
+    description: "Aplicación web moderna para la gestión integral de una tienda: administración de productos, control de stock y movimientos de inventario, ventas mediante un punto de venta (POS) interactivo, y un catálogo público para clientes con soporte de delivery georreferenciado mediante mapas.",
     features: [
-      "Catálogo de propiedades con filtros",
-      "Galería de imágenes por propiedad",
-      "Formulario de contacto vía WhatsApp",
-      "Diseño 100% responsivo"
+      "Gestión de inventario: control completo de productos, stock y movimientos",
+      "Punto de venta (POS): carrito interactivo, descuentos, múltiples métodos de pago y anulación de transacciones",
+      "Delivery georreferenciado con Google Maps para ubicación de tienda y direcciones de entrega",
+      "Portal del cliente: catálogo interactivo con stock en tiempo real",
+      "Configuración dinámica de parámetros clave (ubicación, tarifa de envío, alertas de vencimiento)",
+      "Alertas automáticas por correo de productos próximos a vencer"
     ],
-    tech: ["HTML", "Tailwind CSS", "JavaScript"],
-    links: { demo: "#", repo: "#" }
-  },
-  {
-    id: "gestor-eventos",
-    title: "Gestor de Eventos",
-    category: "otros",
-    categoryLabel: "Otros",
-    icon: "ticket",
-    color: "amber",
-    summary: "Publicación de eventos, venta de entradas y control de asistencia.",
-    description: "Plataforma para publicar eventos, vender entradas en línea y controlar la asistencia mediante códigos QR generados por compra.",
-    features: [
-      "Publicación y gestión de eventos",
-      "Venta de entradas en línea",
-      "Generación de códigos QR",
-      "Control de asistencia en tiempo real"
-    ],
-    tech: ["Laravel", "MySQL", "Bootstrap", "QR Code"],
-    links: { demo: "#", repo: "#" }
+    tech: ["PHP 8.2+", "Laravel 12", "Tailwind CSS 4", "Vite", "Alpine.js", "SQLite", "Google Maps API"],
+    images: [],
+    links: { demo: "", repo: "" }
   }
 ];
