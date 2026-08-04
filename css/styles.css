@@ -2,6 +2,80 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Fondo decorativo global: grilla de puntos difuminada en los bordes + orbes de color en movimiento lento */
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-decor::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(99, 102, 241, .35) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 15%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% 15%, #000 40%, transparent 100%);
+  opacity: .4;
+}
+
+.dark .bg-decor::before {
+  opacity: .5;
+}
+
+.bg-decor .orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: .35;
+  animation: orbFloat 24s ease-in-out infinite alternate;
+}
+
+.dark .bg-decor .orb {
+  opacity: .2;
+}
+
+.bg-decor .orb-1 {
+  width: 34rem;
+  height: 34rem;
+  top: -12rem;
+  left: -10rem;
+  background: radial-gradient(circle, #818cf8, transparent 70%);
+}
+
+.bg-decor .orb-2 {
+  width: 30rem;
+  height: 30rem;
+  top: 20%;
+  right: -12rem;
+  background: radial-gradient(circle, #c084fc, transparent 70%);
+  animation-delay: -8s;
+}
+
+.bg-decor .orb-3 {
+  width: 32rem;
+  height: 32rem;
+  bottom: -12rem;
+  left: 20%;
+  background: radial-gradient(circle, #f0abfc, transparent 70%);
+  animation-delay: -16s;
+}
+
+@keyframes orbFloat {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(3%, 4%) scale(1.06); }
+  100% { transform: translate(-3%, -2%) scale(0.97); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-decor .orb {
+    animation: none;
+  }
+}
+
 #modal-backdrop.flex {
   display: flex;
 }
