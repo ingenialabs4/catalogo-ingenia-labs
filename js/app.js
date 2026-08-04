@@ -35,6 +35,7 @@ const loadMoreBtn = document.getElementById("load-more");
 const emptyState = document.getElementById("empty-state");
 const modalBackdrop = document.getElementById("modal-backdrop");
 const modalContent = document.getElementById("modal-content");
+const modalThumbnails = document.getElementById("modal-thumbnails");
 const themeToggle = document.getElementById("theme-toggle");
 
 function getFilteredProjects() {
@@ -156,21 +157,11 @@ function openModal(id) {
   const hasImages = project.images && project.images.length > 0;
 
   const header = hasImages
-    ? `<div class="rounded-t-2xl overflow-hidden flex bg-slate-100 dark:bg-slate-800">
-         <div class="relative flex-1 min-w-0">
-           <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
-           <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
-             <i data-lucide="x" class="w-4 h-4"></i>
-           </button>
-         </div>
-         ${project.images.length > 1 ? `
-         <div class="w-20 shrink-0 flex flex-col gap-2 p-2 overflow-y-auto max-h-[28rem]">
-           ${project.images.map((src, i) => `
-             <button type="button" data-src="${src}"
-               class="thumb-btn shrink-0 w-full aspect-square rounded-lg border-2 ${i === 0 ? "border-brand-500" : "border-transparent"} bg-white dark:bg-slate-900 overflow-hidden">
-               <img src="${src}" alt="" class="w-full h-full object-cover">
-             </button>`).join("")}
-         </div>` : ""}
+    ? `<div class="relative rounded-t-2xl overflow-hidden bg-slate-100 dark:bg-slate-800">
+         <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
+         <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
+           <i data-lucide="x" class="w-4 h-4"></i>
+         </button>
        </div>`
     : `<div class="relative h-44 bg-slate-100 dark:bg-slate-800 flex items-center justify-center rounded-t-2xl">
          <i data-lucide="${project.icon}" class="w-14 h-14 text-slate-300 dark:text-slate-600"></i>
@@ -178,6 +169,15 @@ function openModal(id) {
            <i data-lucide="x" class="w-4 h-4"></i>
          </button>
        </div>`;
+
+  const showThumbnails = hasImages && project.images.length > 1;
+  const thumbnailsHTML = showThumbnails
+    ? project.images.map((src, i) => `
+        <button type="button" data-src="${src}"
+          class="thumb-btn shrink-0 w-24 h-24 rounded-xl border-2 ${i === 0 ? "border-brand-500" : "border-white/40"} bg-white dark:bg-slate-900 shadow-lg overflow-hidden">
+          <img src="${src}" alt="" class="w-full h-full object-cover">
+        </button>`).join("")
+    : "";
 
   const links = [];
   if (project.links.demo) {
@@ -216,6 +216,16 @@ function openModal(id) {
       ${links.length ? `<div class="flex flex-wrap gap-3">${links.join("")}</div>` : ""}
     </div>`;
 
+  if (showThumbnails) {
+    modalThumbnails.innerHTML = thumbnailsHTML;
+    modalThumbnails.classList.remove("hidden");
+    modalThumbnails.classList.add("flex");
+  } else {
+    modalThumbnails.innerHTML = "";
+    modalThumbnails.classList.add("hidden");
+    modalThumbnails.classList.remove("flex");
+  }
+
   modalBackdrop.classList.remove("hidden");
   modalBackdrop.classList.add("flex");
   document.body.classList.add("overflow-hidden");
@@ -223,14 +233,14 @@ function openModal(id) {
   document.getElementById("modal-close").addEventListener("click", closeModal);
 
   const mainImage = document.getElementById("modal-main-image");
-  modalContent.querySelectorAll(".thumb-btn").forEach((btn) => {
+  modalThumbnails.querySelectorAll(".thumb-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       mainImage.src = btn.dataset.src;
-      modalContent.querySelectorAll(".thumb-btn").forEach((b) => {
+      modalThumbnails.querySelectorAll(".thumb-btn").forEach((b) => {
         b.classList.remove("border-brand-500");
-        b.classList.add("border-transparent");
+        b.classList.add("border-white/40");
       });
-      btn.classList.remove("border-transparent");
+      btn.classList.remove("border-white/40");
       btn.classList.add("border-brand-500");
     });
   });
@@ -241,6 +251,9 @@ function openModal(id) {
 function closeModal() {
   modalBackdrop.classList.add("hidden");
   modalBackdrop.classList.remove("flex");
+  modalThumbnails.classList.add("hidden");
+  modalThumbnails.classList.remove("flex");
+  modalThumbnails.innerHTML = "";
   document.body.classList.remove("overflow-hidden");
 }
 
