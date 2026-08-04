@@ -84,9 +84,9 @@ function projectCardHTML(project) {
   let thumbnailWrap;
   if (hasImage && isMobileApp) {
     const preview = project.images.slice(0, 3);
-    thumbnailWrap = `<div class="relative h-40 bg-slate-100 dark:bg-slate-800 flex items-center justify-center gap-3 p-4">
+    thumbnailWrap = `<div class="relative bg-slate-100 dark:bg-slate-800 flex items-center justify-center gap-3 p-4">
          ${preview.map((src) => `
-           <div class="h-full flex-1 max-w-[30%] bg-white dark:bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center p-2">
+           <div class="aspect-[9/19] flex-1 max-w-[30%] bg-white dark:bg-slate-900 rounded-lg overflow-hidden flex items-center justify-center p-2">
              <img src="${src}" alt="${project.title}" class="max-h-full max-w-full w-auto h-auto object-contain">
            </div>`).join("")}
          <span class="absolute top-3 left-3 w-9 h-9 rounded-lg ${color.iconBg} text-white flex items-center justify-center">
