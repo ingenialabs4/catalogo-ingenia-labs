@@ -79,7 +79,7 @@ function projectCardHTML(project) {
   const color = COLOR_MAP[project.color] || COLOR_MAP.blue;
   const hasImage = project.images && project.images.length > 0;
   const thumbnail = hasImage
-    ? `<img src="${project.images[0]}" alt="${project.title}" class="w-full h-full object-cover">`
+    ? `<img src="${project.images[0]}" alt="${project.title}" class="max-w-full max-h-full object-contain p-2">`
     : `<i data-lucide="${project.icon}" class="w-10 h-10 text-slate-300 dark:text-slate-600"></i>`;
   return `
     <article data-id="${project.id}"
@@ -135,16 +135,22 @@ function openModal(id) {
   const hasImages = project.images && project.images.length > 0;
 
   const header = hasImages
-    ? `<img src="${project.images[0]}" alt="${project.title}" class="w-full h-44 object-cover rounded-t-2xl">`
+    ? `<div class="bg-slate-100 dark:bg-slate-800 rounded-t-2xl overflow-hidden">
+         <div class="h-56 flex items-center justify-center">
+           <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="max-w-full max-h-full object-contain p-2">
+         </div>
+         ${project.images.length > 1 ? `
+         <div class="flex gap-2 px-4 pb-4 overflow-x-auto">
+           ${project.images.map((src, i) => `
+             <button type="button" data-src="${src}"
+               class="thumb-btn shrink-0 w-16 h-16 rounded-lg border-2 ${i === 0 ? "border-brand-500" : "border-transparent"} bg-white dark:bg-slate-900 overflow-hidden">
+               <img src="${src}" alt="" class="w-full h-full object-contain p-1">
+             </button>`).join("")}
+         </div>` : ""}
+       </div>`
     : `<div class="h-44 bg-slate-100 dark:bg-slate-800 flex items-center justify-center rounded-t-2xl">
          <i data-lucide="${project.icon}" class="w-14 h-14 text-slate-300 dark:text-slate-600"></i>
        </div>`;
-
-  const gallery = hasImages && project.images.length > 1
-    ? `<div class="grid grid-cols-3 gap-2 mb-6">
-         ${project.images.slice(1).map((src) => `<img src="${src}" alt="${project.title}" class="w-full h-20 object-cover rounded-lg">`).join("")}
-       </div>`
-    : "";
 
   const links = [];
   if (project.links.demo) {
@@ -172,8 +178,6 @@ function openModal(id) {
       <h2 class="text-2xl font-bold mb-3">${project.title}</h2>
       <p class="text-slate-600 dark:text-slate-400 mb-6">${project.description}</p>
 
-      ${gallery}
-
       <h3 class="font-semibold mb-2 text-sm uppercase tracking-wide text-slate-400">Características</h3>
       <ul class="mb-6 space-y-2">
         ${project.features.map((f) => `
@@ -195,6 +199,20 @@ function openModal(id) {
   document.body.classList.add("overflow-hidden");
 
   document.getElementById("modal-close").addEventListener("click", closeModal);
+
+  const mainImage = document.getElementById("modal-main-image");
+  modalContent.querySelectorAll(".thumb-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      mainImage.src = btn.dataset.src;
+      modalContent.querySelectorAll(".thumb-btn").forEach((b) => {
+        b.classList.remove("border-brand-500");
+        b.classList.add("border-transparent");
+      });
+      btn.classList.remove("border-transparent");
+      btn.classList.add("border-brand-500");
+    });
+  });
+
   lucide.createIcons();
 }
 
