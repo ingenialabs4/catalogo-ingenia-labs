@@ -140,19 +140,27 @@ function openModal(id) {
   const hasImages = project.images && project.images.length > 0;
 
   const header = hasImages
-    ? `<div class="bg-slate-100 dark:bg-slate-800 rounded-t-2xl overflow-hidden">
-         <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
+    ? `<div class="rounded-t-2xl overflow-hidden flex bg-slate-100 dark:bg-slate-800">
+         <div class="relative flex-1 min-w-0">
+           <img id="modal-main-image" src="${project.images[0]}" alt="${project.title}" class="w-full h-auto block">
+           <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
+             <i data-lucide="x" class="w-4 h-4"></i>
+           </button>
+         </div>
          ${project.images.length > 1 ? `
-         <div class="flex gap-2 px-4 pb-4 overflow-x-auto">
+         <div class="w-20 shrink-0 flex flex-col gap-2 p-2 overflow-y-auto max-h-[28rem]">
            ${project.images.map((src, i) => `
              <button type="button" data-src="${src}"
-               class="thumb-btn shrink-0 w-16 h-16 rounded-lg border-2 ${i === 0 ? "border-brand-500" : "border-transparent"} bg-white dark:bg-slate-900 overflow-hidden">
-               <img src="${src}" alt="" class="w-full h-full object-contain p-1">
+               class="thumb-btn shrink-0 w-full aspect-square rounded-lg border-2 ${i === 0 ? "border-brand-500" : "border-transparent"} bg-white dark:bg-slate-900 overflow-hidden">
+               <img src="${src}" alt="" class="w-full h-full object-cover">
              </button>`).join("")}
          </div>` : ""}
        </div>`
-    : `<div class="h-44 bg-slate-100 dark:bg-slate-800 flex items-center justify-center rounded-t-2xl">
+    : `<div class="relative h-44 bg-slate-100 dark:bg-slate-800 flex items-center justify-center rounded-t-2xl">
          <i data-lucide="${project.icon}" class="w-14 h-14 text-slate-300 dark:text-slate-600"></i>
+         <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
+           <i data-lucide="x" class="w-4 h-4"></i>
+         </button>
        </div>`;
 
   const links = [];
@@ -168,12 +176,7 @@ function openModal(id) {
   }
 
   modalContent.innerHTML = `
-    <div class="relative">
-      ${header}
-      <button id="modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center hover:bg-white dark:hover:bg-slate-900">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-    </div>
+    ${header}
     <div class="p-6 sm:p-8">
       <div class="flex items-center gap-2 mb-3">
         <span class="text-xs font-semibold px-2 py-1 rounded-full ${color.badgeBg} ${color.badgeText}">${project.categoryLabel}</span>
