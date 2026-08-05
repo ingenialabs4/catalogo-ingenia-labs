@@ -109,5 +109,33 @@ const PROJECTS = [
       "assets/img/proyectos/ventas-inventario-6.png"
     ],
     links: { demo: "", repo: "" }
+  },
+  {
+    id: "inmopredict",
+    title: "InmoPredict — Predicción Inmobiliaria con IA",
+    category: "administrativo",
+    categoryLabel: "Administrativo",
+    icon: "trending-up",
+    color: "blue",
+    summary: "Sistema de tasación de propiedades con Machine Learning: panel web, predictor de precios y control de acceso por roles.",
+    description: "Sistema completo para tasar propiedades usando Machine Learning, con panel web y control de acceso por roles (administrador, analista, invitado). Un modelo Random Forest entrenado con ~6,000 propiedades sintéticas calibradas a precios reales de distritos de Lima (San Isidro, Miraflores, Barranco, San Borja, Surco, La Molina, entre otros) predice el precio a partir de distrito, área, antigüedad, tipo de inmueble, conservación, dormitorios, baños, estacionamientos, piso, ascensor y amoblado. Incluye dashboard con KPIs de cartera, catálogo de propiedades con comparación de precio de lista vs. estimación de la IA, gestión de clientes, bandeja de consultas y un módulo de análisis de mercado con métricas reales de desempeño del modelo (MAPE, R²).",
+    features: [
+      "Predictor de precio con IA: tasación con rango de confianza y precisión del modelo a partir de las características del inmueble",
+      "Dashboard con KPIs de cartera, estimador rápido de precio y tareas pendientes",
+      "Catálogo de propiedades con filtros y ficha detallada comparando precio de lista vs. estimación de la IA",
+      "Gestión de clientes: ficha con propiedades asociadas, historial de consultas y notas de seguimiento",
+      "Bandeja de consultas organizadas en hilos, con respuesta y marcado como resuelta",
+      "Análisis de mercado: valor de suelo por distrito, distribución de cartera y métricas del modelo (MAPE, R²)",
+      "Control de acceso por roles (administrador, analista, invitado) y gestión de equipo",
+      "Búsqueda global en vivo y notificaciones de consultas pendientes"
+    ],
+    tech: ["FastAPI", "Python", "scikit-learn", "Random Forest", "SQLite", "React", "Tailwind CSS"],
+    images: [
+      "assets/img/proyectos/prediccion-inmobiliaria-1.png",
+      "assets/img/proyectos/prediccion-inmobiliaria-2.png",
+      "assets/img/proyectos/prediccion-inmobiliaria-3.png",
+      "assets/img/proyectos/prediccion-inmobiliaria-4.png"
+    ],
+    links: { demo: "", repo: "" }
   }
 ];
